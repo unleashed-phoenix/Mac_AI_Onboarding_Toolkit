@@ -1,0 +1,36 @@
+# ---- Python / uv ----
+.venv/
+__pycache__/
+*.py[cod]
+.python-version
+uv.lock
+
+# ---- Secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Data / models (keep repo light, protect quota) ----
+data/
+models/
+*.gguf
+*.safetensors
+chroma_db/
+.chroma/
+
+# ---- Notebooks ----
+.ipynb_checkpoints/
+
+# ---- macOS ----
+.DS_Store
+
+# ---- Editors ----
+.vscode/
+.cursor/
+.idea/
+
+# ---- Logs / caches ----
+*.log
+.cache/
+.pytest_cache/
+.ruff_cache/
