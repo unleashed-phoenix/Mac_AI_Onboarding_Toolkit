@@ -34,3 +34,7 @@ chroma_db/
 .cache/
 .pytest_cache/
 .ruff_cache/
+
+# ---- uv init boilerplate (auto-generated, not part of this toolkit) ----
+main.py
+claude_md_init_generated.md
