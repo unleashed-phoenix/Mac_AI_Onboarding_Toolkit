@@ -1,0 +1,19 @@
+[project]
+name = "15-evals-testing"
+version = "0.1.0"
+description = "LLM evaluation patterns: golden datasets, assertions, and LLM-as-judge"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "anthropic>=0.116.0",
+    "langsmith>=0.9.7",
+    "python-dotenv>=1.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

@@ -15,12 +15,30 @@ protocol. Build a server once; Claude Code, Cursor, and other MCP clients can al
 ## Install
 ```
 cd 14_mcp_servers
-uv init
-uv python pin 3.12
+uv init --python 3.12
 uv add "mcp[cli]" python-dotenv
-cp ../.env.example .env
+uv add --dev pytest
 ```
-Scaffold a server: `uv run mcp` (CLI helpers). Register it in your client's MCP config.
+
+## Run / Register
+```
+uv run python example.py          # starts MCP server on stdio
+uv run pytest                     # 10 tests, no server needed (tool fns tested directly)
+```
+
+Register in Claude Code (`~/.claude/settings.json`):
+```json
+{
+  "mcpServers": {
+    "demo_server": {
+      "command": "uv",
+      "args": ["run", "--directory", "/abs/path/to/14_mcp_servers", "python", "example.py"]
+    }
+  }
+}
+```
+`example.py` exposes: `get_weather`, `calculate`, `list_files` tools and `data://readme`,
+`data://config` resources. Tool functions are pure Python — no MCP protocol needed to test.
 
 ## Alternatives & switching
 | Alt | Trade-off | Switch cost |
@@ -32,4 +50,5 @@ Scaffold a server: `uv run mcp` (CLI helpers). Register it in your client's MCP 
 No difference in Python; only the client config path differs.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `example.py` (3 tools + 2 resources via FastMCP) and `tests/`
+(10 tests, all passing) on Python 3.12. No API key or running server needed for tests.

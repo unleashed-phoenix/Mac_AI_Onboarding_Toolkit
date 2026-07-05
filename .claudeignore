@@ -1,0 +1,47 @@
+# .claudeignore — keep Claude Code's context window lean.
+# Repo-wide: patterns without a leading slash match at ANY depth, so this single
+# root file covers every 01_…18_ sub-folder (each has its own .venv, caches, etc.).
+# Syntax is .gitignore-style. This affects what Claude reads into context, not git.
+
+# ---- Python envs & bytecode ----
+.venv/
+__pycache__/
+*.py[cod]
+.python-version
+
+# ---- Tool caches ----
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+.cache/
+
+# ---- Lockfiles (large, machine-generated) ----
+*.lock
+uv.lock
+
+# ---- Data, models & vector stores (big binaries, protect quota) ----
+data/
+models/
+*.gguf
+*.safetensors
+chroma_db/
+.chroma/
+*.db
+*.sqlite
+*.sqlite3
+
+# ---- Secrets (never pull real keys into context) ----
+.env
+.env.*
+!.env.example
+
+# ---- macOS / editors / logs ----
+.DS_Store
+.vscode/
+.cursor/
+.idea/
+*.log
+
+# ---- VCS internals ----
+.git/

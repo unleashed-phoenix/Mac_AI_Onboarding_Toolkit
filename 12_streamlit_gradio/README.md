@@ -15,12 +15,20 @@ data apps/dashboards; Gradio = quick ML/chat demos (and free HF Spaces hosting).
 ## Install
 ```
 cd 12_streamlit_gradio
-uv init
-uv python pin 3.12
-uv add streamlit gradio python-dotenv
+uv init --python 3.12
+uv add streamlit gradio anthropic python-dotenv
+uv add --dev pytest
 cp ../.env.example .env
 ```
-Run: `uv run streamlit run app.py`  or  `uv run python gradio_app.py`.
+
+## Run
+```
+uv run streamlit run streamlit_app.py   # Streamlit chat (opens browser)
+uv run python gradio_app.py             # Gradio chat (prints URL)
+uv run pytest                           # tests LLM helper only (UI can't be pytest'd)
+```
+UI files can't be unit-tested without a headless browser; `tests/` covers `example.py`
+(the shared LLM helper that both UI files import).
 
 ## Which one
 Dashboards, multi-widget data apps → Streamlit. Chatbots, model demos, shareable Spaces →
@@ -36,4 +44,6 @@ Gradio.
 No difference.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `streamlit_app.py`, `gradio_app.py`, `example.py` (shared LLM
+helper), and `tests/` (5 mocked, 1 opt-in live) on Python 3.12. Add `ANTHROPIC_API_KEY`
+to run live. Note: UI frames themselves cannot be pytest'd without a headless browser.

@@ -17,11 +17,22 @@ with a common interface across providers. The "glue" layer.
 ## Install
 ```
 cd 05_langchain
-uv init
-uv python pin 3.12
-uv add langchain langchain-anthropic langchain-openai python-dotenv
+uv init --python 3.12
+uv add langchain langchain-anthropic langchain-openai numpy python-dotenv
+uv add --dev pytest
 cp ../.env.example .env
 ```
+Set `ANTHROPIC_API_KEY` in `.env`; `OPENAI_API_KEY` optional (for provider-swap demo).
+Note: `numpy` is required by `InMemoryVectorStore` for cosine similarity.
+
+## Run
+```
+uv run python example.py              # all three demos
+uv run python example.py basic_chain  # or: provider_swap | retrieval
+uv run pytest                         # mocked tests (no key); live skips without key
+```
+`example.py` shows: (1) LCEL `ChatAnthropic | StrOutputParser` chain, (2) same chain
+swapped to `ChatOpenAI` in one line, (3) `InMemoryVectorStore` retrieve-then-answer RAG.
 
 ## Alternatives & switching
 | Alt | Trade-off | Switch cost |
@@ -34,4 +45,5 @@ cp ../.env.example .env
 No difference.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `example.py` (LCEL chain + provider swap + retrieval) and
+`tests/` (4 mocked, 1 opt-in live) on Python 3.12. Add `ANTHROPIC_API_KEY` to run live.

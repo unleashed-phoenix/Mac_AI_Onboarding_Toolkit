@@ -1,0 +1,21 @@
+[project]
+name = "05-langchain"
+version = "0.1.0"
+description = "Minimal LangChain reference: LCEL chain, provider swap, in-memory retrieval."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "langchain>=0.3.0",
+    "langchain-anthropic>=0.3.0",
+    "langchain-openai>=0.3.0",
+    "numpy>=2.5.1",
+    "python-dotenv>=1.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

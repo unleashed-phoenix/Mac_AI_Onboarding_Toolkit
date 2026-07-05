@@ -1,0 +1,21 @@
+[project]
+name = "10-structured-outputs"
+version = "0.1.0"
+description = "Typed JSON from LLMs: native Anthropic tool-use + Instructor library"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "anthropic>=0.116.0",
+    "instructor>=1.15.4",
+    "openai>=2.44.0",
+    "pydantic>=2.13.4",
+    "python-dotenv>=1.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

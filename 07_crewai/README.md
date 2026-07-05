@@ -16,11 +16,22 @@ a "crew" coordinates them on tasks sequentially or hierarchically.
 ## Install
 ```
 cd 07_crewai
-uv init
-uv python pin 3.12
-uv add crewai python-dotenv
+uv init --python 3.12
+uv add "crewai[anthropic]" python-dotenv
+uv add --dev pytest
 cp ../.env.example .env
 ```
+Set `ANTHROPIC_API_KEY` in `.env`.
+Note: `crewai[anthropic]` installs the native Anthropic provider. For local Ollama
+instead, see the swap note in `example.py` (no key needed, zero cost).
+
+## Run
+```
+uv run python example.py    # researcher + writer crew
+uv run pytest               # mocked tests (no key); live skips without key
+```
+`example.py` shows a 2-agent sequential crew: Researcher gathers facts, Writer
+produces a paragraph. Drop-in Ollama swap is documented in the module docstring.
 
 ## Alternatives & switching
 | Alt | Trade-off | Switch cost |
@@ -33,4 +44,5 @@ cp ../.env.example .env
 No difference. Can drive local Qwen (`18`) to cut cost.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `example.py` (Researcher + Writer crew) and `tests/`
+(4 mocked, 1 opt-in live) on Python 3.12. Add `ANTHROPIC_API_KEY` to run live.

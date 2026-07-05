@@ -1,0 +1,18 @@
+[project]
+name = "14-mcp-servers"
+version = "0.1.0"
+description = "Model Context Protocol server: expose Python tools to Claude Code / Cursor"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "mcp[cli]>=1.28.1",
+    "python-dotenv>=1.2.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

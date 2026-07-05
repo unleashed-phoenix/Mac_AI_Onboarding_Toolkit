@@ -15,12 +15,18 @@ Uvicorn. The standard way to turn a script into a service.
 ## Install
 ```
 cd 11_fastapi_serving
-uv init
-uv python pin 3.12
-uv add fastapi uvicorn pydantic python-dotenv
+uv init --python 3.12
+uv add fastapi "uvicorn[standard]" anthropic python-dotenv
+uv add --dev pytest httpx
 cp ../.env.example .env
 ```
-Run: `uv run uvicorn app:app --reload`.
+
+## Run
+```
+uv run uvicorn app:app --reload    # starts server at http://127.0.0.1:8000
+uv run pytest                      # 5 mocked tests (no server, no key needed)
+```
+Open `http://127.0.0.1:8000/docs` for automatic Swagger UI. Test endpoints with Bruno using `api.bru`.
 
 ## Test the endpoints with Bruno
 Use **Bruno** (installed via Brewfile) for API testing — never Postman. Save a `.bru`
@@ -36,4 +42,6 @@ collection alongside the code.
 No difference.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `app.py` (GET /health, POST /chat, POST /chat/stream SSE),
+`api.bru` Bruno collection, and `tests/test_app.py` (5 mocked) on Python 3.12.
+Add `ANTHROPIC_API_KEY` to run live.

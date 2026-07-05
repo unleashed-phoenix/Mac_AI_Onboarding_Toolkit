@@ -1,0 +1,46 @@
+meta {
+  name: LLM Chat API
+  type: http
+  seq: 1
+}
+
+# ── Health check ──────────────────────────────────────────────────────────────
+get {
+  url: http://127.0.0.1:8000/health
+  body: none
+  auth: none
+}
+
+###
+
+# ── Synchronous chat ──────────────────────────────────────────────────────────
+post {
+  url: http://127.0.0.1:8000/chat
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "message": "What is the capital of France?",
+    "system": "You are a helpful assistant. Reply concisely.",
+    "max_tokens": 128
+  }
+}
+
+###
+
+# ── Streaming chat (SSE) ──────────────────────────────────────────────────────
+post {
+  url: http://127.0.0.1:8000/chat/stream
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "message": "Count from 1 to 5, one number per line.",
+    "system": "You are a helpful assistant.",
+    "max_tokens": 128
+  }
+}

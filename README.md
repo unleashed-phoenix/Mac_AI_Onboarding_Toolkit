@@ -19,7 +19,6 @@ These follow the project's non-negotiable teaching rules:
 - **One `.venv` per sub-folder**, one `.env` per sub-folder (gitignored).
 - **Commands are one per line** — never backslash line-continuation.
 - **API testing:** Bruno. Never Postman.
-- **Grok** = xAI (Elon Musk). Never write "Groq".
 - **Local models:** always sized for 24 GB RAM (~20–22 GB usable). See
   `09_ollama_mlx_local/` and `18_qwen_local/`.
 - **Philosophy:** WHY before HOW, always compare alternatives, always note ease of

@@ -15,11 +15,20 @@ usually via Pydantic models + provider "structured output" / "tool" modes.
 ## Install
 ```
 cd 10_structured_outputs
-uv init
-uv python pin 3.12
+uv init --python 3.12
 uv add pydantic instructor anthropic openai python-dotenv
+uv add --dev pytest
 cp ../.env.example .env
 ```
+
+## Run
+```
+uv run python example.py          # all three demos
+uv run python example.py native   # or: instructor | list
+uv run pytest                     # 4 mocked + 1 skipped (no key)
+```
+`example.py` shows: (1) native Anthropic tool-use → Pydantic parse, (2) Instructor
+single-item extraction with auto-retry, (3) Instructor list extraction.
 
 ## Pattern
 Define a `pydantic.BaseModel`, pass it as the response schema (native structured output on
@@ -37,4 +46,5 @@ automatic re-ask on validation failure.
 No difference.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `example.py` (native tool-use + Instructor) and `tests/`
+(4 mocked, 1 opt-in live) on Python 3.12. Add `ANTHROPIC_API_KEY` to run live.

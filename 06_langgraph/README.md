@@ -16,11 +16,21 @@ branching, loops, human-in-the-loop, and durable checkpointed state.
 ## Install
 ```
 cd 06_langgraph
-uv init
-uv python pin 3.12
+uv init --python 3.12
 uv add langgraph langchain-anthropic python-dotenv
+uv add --dev pytest
 cp ../.env.example .env
 ```
+Set `ANTHROPIC_API_KEY` in `.env`.
+
+## Run
+```
+uv run python example.py               # all demos
+uv run python example.py simple_graph  # or: react_loop
+uv run pytest                          # mocked tests (no key); live skips without key
+```
+`example.py` shows: (1) linear `START → llm → END` graph, (2) ReAct loop with
+`get_weather` tool — `tools_condition` routes back to `llm_node` until done.
 
 ## Alternatives & switching
 | Alt | Trade-off | Switch cost |
@@ -33,4 +43,5 @@ cp ../.env.example .env
 No difference.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `example.py` (simple graph + ReAct loop) and `tests/`
+(4 mocked, 1 opt-in live) on Python 3.12. Add `ANTHROPIC_API_KEY` to run live.

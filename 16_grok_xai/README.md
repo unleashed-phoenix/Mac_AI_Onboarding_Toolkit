@@ -15,12 +15,21 @@ spelling: **Grok** = xAI. Never "Groq" (that's a different, unrelated hardware c
 ## Install
 ```
 cd 16_grok_xai
-uv init
-uv python pin 3.12
+uv init --python 3.12
 uv add openai python-dotenv
+uv add --dev pytest
 cp ../.env.example .env
 ```
 Use the OpenAI SDK with `base_url="https://api.x.ai/v1"` and `XAI_API_KEY`.
+
+## Run
+```
+uv run python example.py          # all three demos
+uv run python example.py basic    # or: streaming | tools
+uv run pytest                     # 3 mocked + 1 skipped (no key)
+```
+Same three demos as folder 03 (basic + streaming + tool-use) — identical code, different
+`base_url` + key. Switching cost from OpenAI to xAI: 1 (swap two env vars).
 
 ## Alternatives & switching
 | Alt | Trade-off | Switch cost |
@@ -32,4 +41,5 @@ Use the OpenAI SDK with `base_url="https://api.x.ai/v1"` and `XAI_API_KEY`.
 No difference.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `example.py` (basic + streaming + tool-use) and `tests/`
+(3 mocked, 1 opt-in live) on Python 3.12. Add `XAI_API_KEY` to run live.

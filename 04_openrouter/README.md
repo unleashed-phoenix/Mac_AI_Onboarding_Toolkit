@@ -17,13 +17,22 @@ key, one bill, per-request model choice, automatic fallback.
 ## Install
 ```
 cd 04_openrouter
-uv init
-uv python pin 3.12
+uv init --python 3.12
 uv add openai python-dotenv
+uv add --dev pytest
 cp ../.env.example .env
 ```
-Set `OPENROUTER_API_KEY`. Use the OpenAI SDK with
-`base_url="https://openrouter.ai/api/v1"`.
+Set `OPENROUTER_API_KEY`. Uses the OpenAI SDK with
+`base_url="https://openrouter.ai/api/v1"` — no lock-in.
+
+## Run
+```
+uv run python example.py            # all demos
+uv run python example.py basic      # or: ab_compare
+uv run pytest                       # mocked tests (no key); live skips without key
+```
+`example.py` shows: (1) single call with a swappable model param, (2) A/B comparison —
+same prompt, two models side-by-side (`anthropic/claude-haiku-4-5` vs `openai/gpt-4o-mini`).
 
 ## Alternatives & switching
 | Alt | Trade-off | Switch cost |
@@ -35,4 +44,5 @@ Set `OPENROUTER_API_KEY`. Use the OpenAI SDK with
 No difference.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `example.py` (basic + A/B compare) and `tests/` (4 mocked,
+1 opt-in live) on Python 3.12. Add `OPENROUTER_API_KEY` to `.env` to run live.

@@ -35,5 +35,24 @@ Fits: 12–14B Q4 comfortably. Tight (close apps): `qwen3.6:27b` (~17 GB, best q
 ## Mac vs Windows
 **Big difference:** MLX is Apple-Silicon-only. On Windows you'd use CUDA/llama.cpp instead.
 
+## Install (example only — Ollama/MLX already set up)
+```
+cd 09_ollama_mlx_local
+uv init --python 3.12
+uv add openai python-dotenv
+uv add --dev pytest
+```
+No API key needed. Requires Ollama running (`ollama serve`).
+
+## Run
+```
+uv run python example.py            # all three demos
+uv run python example.py basic      # or: streaming | embeddings
+uv run pytest                       # mocked tests run without Ollama; live skips if not running
+```
+`example.py` shows: (1) chat via OpenAI-compatible endpoint, (2) streaming,
+(3) embeddings with nomic-embed-text — same client, same endpoint, different model.
+
 ## Status
-✅ Tooling installed · ⬜ example scaffold pending.
+✅ Deep-dive complete — `example.py` (basic + streaming + embeddings) and `tests/`
+(4 mocked, 1 opt-in live) on Python 3.12. Ollama live tests pass when server is running.

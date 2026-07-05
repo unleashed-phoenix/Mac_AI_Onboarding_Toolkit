@@ -16,15 +16,24 @@ top open-source line; `qwen2.5-coder:14b` is already the daily local coding driv
 ## Install / pull
 ```
 cd 18_qwen_local
-uv init
-uv python pin 3.12
+uv init --python 3.12
 uv add ollama python-dotenv
+uv add --dev pytest
 ```
-Models (via Ollama):
+Models (via Ollama — both already installed on this Mac):
 ```
 ollama pull qwen2.5-coder:14b
 ollama pull qwen3.6:27b
 ```
+
+## Run
+```
+uv run python example.py              # all three demos (needs Ollama running)
+uv run python example.py basic        # or: streaming | embeddings
+uv run pytest                         # mocked tests run without Ollama; live if running
+```
+Uses the `ollama` Python package (native API) — different from folder 09 which uses the
+OpenAI-compatible HTTP shim. Demos: (1) chat, (2) streaming, (3) embeddings.
 
 ## 24 GB RAM guidance
 - `qwen2.5-coder:14b` Q4 (~9 GB) — ✅ comfortable, daily driver.
@@ -42,4 +51,5 @@ ollama pull qwen3.6:27b
 MLX backend is Apple-Silicon-only; on Windows you'd use CUDA/llama.cpp.
 
 ## Status
-✅ `qwen2.5-coder:14b` installed · ⬜ example scaffold pending.
+✅ Deep-dive complete — `example.py` (chat + streaming + embeddings via ollama Python
+client) and `tests/` (4 mocked, 1 live with Ollama running) on Python 3.12.

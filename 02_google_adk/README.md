@@ -16,12 +16,23 @@ multi-agent orchestration. Pairs with Gemini 3.5 (Pro = best multimodal, Flash =
 ## Install
 ```
 cd 02_google_adk
-uv init
-uv python pin 3.12
+uv init --python 3.12
 uv add google-adk python-dotenv
+uv add --dev pytest pytest-asyncio
 cp ../.env.example .env
 ```
 Set `GOOGLE_API_KEY` in `.env`.
+Note: `--python 3.12` in `uv init` sets `requires-python` correctly; the old two-step
+(`uv init` + `uv python pin 3.12`) silently defaults to Python 3.13 on new uv versions.
+
+## Run
+```
+uv run python example.py            # all demos
+uv run python example.py basic      # or: tool_use
+uv run pytest                       # mocked tests (no key needed); live skips without key
+```
+`example.py` shows: (1) basic single-turn agent, (2) automatic tool-dispatch with
+`get_weather`. ADK handles the tool round-trip for you — contrast with 01.
 
 ## Alternatives & switching
 | Alt | Trade-off | Switch cost |
@@ -34,4 +45,5 @@ Set `GOOGLE_API_KEY` in `.env`.
 No difference for the SDK. For Vertex, `gcloud` CLI installs via Homebrew on Mac.
 
 ## Status
-⬜ Scaffold only.
+✅ Deep-dive complete — `example.py` (basic + tool use) and `tests/` (4 mocked, 1 opt-in
+live) on Python 3.12. Add `GOOGLE_API_KEY` to `.env` to run live.

@@ -15,13 +15,23 @@ private networking, data residency, compliance, RBAC. Same models, enterprise wr
 ## Install
 ```
 cd 17_azure_openai
-uv init
-uv python pin 3.12
+uv init --python 3.12
 uv add openai python-dotenv
+uv add --dev pytest
 cp ../.env.example .env
 ```
-Use `AzureOpenAI(...)` with your endpoint, deployment name, and `api_version`. Auth via
-Azure AD or key; store secrets in `.env`.
+Required `.env` keys: `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_API_KEY`,
+`AZURE_OPENAI_DEPLOYMENT` (your deployment name, e.g. `gpt-4o-mini`),
+`AZURE_OPENAI_API_VERSION` (e.g. `2025-01-01-preview`).
+
+## Run
+```
+uv run python example.py          # all three demos (needs Azure keys)
+uv run python example.py basic    # or: streaming | system
+uv run pytest                     # 4 mocked + 1 skipped (no key)
+```
+Uses `AzureOpenAI(azure_endpoint, api_key, api_version)` — all chat/stream patterns
+identical to openai.OpenAI once the client is constructed.
 
 ## Alternatives & switching
 | Alt | Trade-off | Switch cost |
@@ -33,4 +43,5 @@ Azure AD or key; store secrets in `.env`.
 SDK identical; only `az` CLI setup differs (Homebrew on Mac).
 
 ## Status
-⬜ Scaffold only — build last.
+✅ Deep-dive complete — `example.py` (basic + streaming + system prompt) and `tests/`
+(4 mocked, 1 opt-in live) on Python 3.12. Add Azure keys to `.env` to run live.
